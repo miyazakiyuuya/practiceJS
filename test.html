@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+     <!-- //<script type="text/javascript" src="test.js"></script> -->
+    <title></title>
+          <!-- --jsの記載↓-- -->
+<script type="text/javascript">
+    function btnRandom() {
+        var random = Math.floor(Math.random()*6 + 1); //1~6までの乱数
+        document.getElementById("rnd").innerHTML = random; //値の出力
+    }
+    
+    function changeMath(){
+        // 変換したい数字
+        var num = parseInt(document.Hex.elements[0].value);
+        // 10進数=>2進数 toString(2)
+        document.Hex.elements[1].value = num.toString(2);
+        // 10進数=>16進数  toString(16)
+        document.Hex.elements[2].value = num.toString(16);
+    }
+    
+    function btnOmikuji() {
+        let ans = "";
+        var number = Math.floor(Math.random()* 6 + 1);
+        if(number == 1)
+        {
+            ans = "今日の占いは大吉です。";
+            document.getElementById('om').innerHTML = ans;
+        }
+        else if(number == 2)
+        {
+            ans = "今日の占いは中吉です。";
+            document.getElementById('om').innerHTML = ans;
+        }
+        else if(number == 3)
+        {
+            ans = "今日の占いは吉です。";
+            document.getElementById('om').innerHTML = ans;
+        }
+        else if(number == 4)
+        {
+            ans = "今日の占いは小吉です。";
+            document.getElementById('om').innerHTML = ans;
+        }
+        else if(number == 5)
+        {
+            ans = "今日の占いは凶です。";
+            document.getElementById('om').innerHTML = ans;
+        }
+        else
+        {
+            ans = "今日の占いは大凶です。";
+            document.getElementById('om').innerHTML = ans;
+        }
+     }
+
+     // 入力チェック
+     function inputCheck(){
+        
+        // 配列にmsgを入れて画面に表示させる。
+        // var array = ["tes", "ss", "aaa"];
+        // document.getElementById("a").innerHTML = array;
+
+
+        // 入力値を取得
+         let txt = document.getElementById("targetTxt").value;
+         let pwd = document.getElementById("targetPwd").value;
+         let msg = "";
+                  
+         // 空文字とnullの場合
+         if(txt === "" || txt === null)
+         {
+            msg = "入力してください。"; 
+            document.getElementById("errTxt").innerHTML = msg;
+            if(pwd == "" || pwd == null)
+            {
+                msg = "パスワードが一致しません。"; 
+                document.getElementById("errPwd").innerHTML = msg;
+            }
+        }
+        else
+        {
+            msg = " ";
+            document.getElementById("errTxt").innerHTML = msg;
+            document.getElementById("errPwd").innerHTML = msg;
+        }
+        
+        // 255文字以下の場合(複数行)
+        if(txt >= 255)
+        {
+            msg = "255文字以内に入力してください。";
+            document.getElementById("errTxt").innerHTML = msg;
+        }
+        // 10文字以下の場合(pwd)
+        if(pwd >= 10)
+        {
+            msg = "10文字以下に入力してください。";
+            document.getElementById("errPwd").innerHTML = msg;
+        }
+
+        // 禁止文字(複数行)　0-9,漢字,半角英字,全角ひらがな,カタカナ以外の場合
+        if(txt.match(/^([0-9a-zA-Zぁ-んーァ-ンヴー亜-熙])*$/))
+        {
+            msg = "OKAY";
+            document.getElementById("errTxt").innerHTML = msg;
+        }
+        else
+        {
+            msg = "ERROR";
+            document.getElementById("errTxt").innerHTML = msg;
+        }
+
+        // 禁止文字(pwd) @が含まれない&&.が末尾にない場合
+        if(pwd.match(/^([a-z0-9_\.\-])+@([a-z0-9_\.\-])+[^.]$/i))
+        {
+            msg = "OKAY";
+            document.getElementById("errPwd").innerHTML = msg;
+        }
+        else
+        {
+            msg = "ERROR";
+            document.getElementById("errPwd").innerHTML = msg;
+        }
+     }
+
+    </script> 
+</head>
+<body>
+    <h1></h1>
+    <form>
+    <p>サイコロ</p>
+    <input type = "button" value ="ランダム" onclick="btnRandom()"><span id = "rnd"> -</span>
+    </form>
+
+    <br>
+    <br>
+    <form name="Hex">
+        <input type="text" name="" value="255">：変換したい数字<br>
+        <input type="text" name="" value="">：2進数<br>
+        <input type="text" name="" value="">：16進数<br>
+        <input type="button" value="変換" onclick="changeMath()"><br>
+        </form>
+
+        <br>
+        <br>
+        <h2>占い</h2>
+    <form>
+    <input type = "button" value ="占い" onclick="btnOmikuji()"><span id = "om"> 今日の占いをしてみよう!!!</span>
+    </form>
+
+    <br>
+    <br>
+
+    <p>入力チェック(js)</p>
+    <form>
+    <p>複数行テキストの入力を取得</p>
+    <textarea id = 'targetTxt'></textarea>
+    <span id = "errTxt"></span>
+    <p>パスワードの入力を取得</p>
+    <textarea id = 'targetPwd'></textarea>
+    <span id = "errPwd"></span>
+    <input type = "button" value = "入力チェック" onclick="inputCheck()">
+ </form>
+ <br>
+ <br>
+</body>
+</html>
